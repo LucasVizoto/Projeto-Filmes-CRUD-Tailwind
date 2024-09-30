@@ -1,0 +1,17 @@
+APRENDIZADOS NA MARRA DE REACT
+-----------------------------------------------------
+
+Caso você queira que o usuário interaja com algo e seja direcionado
+na página, você deve criar a página realizar um Link e depois definir a rota
+
+no caso, estou criando uma página com visualição de um unico item.
+criei um
+<Link to={`/view/${filme.id}`}>View</Link>
+pra funcionar como botão e "personalizar" o nome na url para bater na API
+DEPOIS fui no App.tsx e usando uma estrutura de 
+<Router>
+	<Routes>
+		<Route path='/view/:id' element={<SeeMovie/>}/>
+        </Routes>
+</Router>
+Defini qual rota aquela url deve seguir, no caso, para a page SeeMovie

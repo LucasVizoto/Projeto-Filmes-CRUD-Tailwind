@@ -1,0 +1,13 @@
+{
+    "filmes": [
+      {
+        "id": "1",
+        "nome": "Filme 12",
+        "genero": "Ficção Cientifica",
+        "anoLancamento": 2014,
+        "notaCritica": 11,
+        "imgUrl": "https://ingresso-a.akamaihd.net/img/cinema/cartaz/4238-cartaz.jpg"
+      }
+    ]
+  }
+
