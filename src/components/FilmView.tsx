@@ -1,41 +1,49 @@
 import { useEffect, useState } from "react";
-import { getFilmes } from "../services/api";
+import { useParams } from "react-router-dom";
+import { getFilmeById } from "../services/api";
 
-
-interface Filme{
-    id: string,
-    nome: string, 
-    genero: string,
-    anoLancamento: number,
-    notaCritica: number,
-    imgUrl: string
+interface Filme {
+  id: string;
+  nome: string;
+  genero: string;
+  anoLancamento: number;
+  notaCritica: number;
+  imgUrl: string;
 }
 
-function FilmeView(){
+function FilmView() {
+  const { id } = useParams<{ id: string }>();
+  const [filme, setFilme] = useState<Filme | null>(null);
 
-    const [filmes, setFilmes] = useState<Filme[]>([]);
-    useEffect(()=>{
-        loadFilmes();
-    },[]);
+  useEffect(() => {
+    if (id) {
+      loadFilme();
+    }
+  }, [id]);
 
-    const loadFilmes = async () =>{
-        const response = await getFilmes();
-        setFilmes(response.data);
-    };
-    return (
-        <span>
-        {filmes.map((filme)=>(
-        <div key={filme.id}>
-            <h1>Dados do Filme {filme.nome}</h1>
-            <img src={filme.imgUrl} alt={"Imagem em processamento..."}/>
-            <p>Gênero: {filme.genero}</p>
-            <p>Ano de lançamento: {filme.anoLancamento}</p>
-            <p>Nota Critica: {filme.notaCritica}</p>
+  const loadFilme = async () => {
+    const response = await getFilmeById(id!);
+    setFilme(response.data);
+  };
+
+  return (
+    <div className="border-4 border-green-700 font-sans">
+      {filme ? (
+        <div className="m-12 mx-auto border-4 rounded-xl hover:scale-105 border-zinc-50 p-3 inline-block">
+            {/* inline block deixa a borda rente ao conteúdo */}
+          <h1 className="font-bold">{filme.nome.toUpperCase()}</h1>
+          <div className="flex justify-center p-5">
+          <img className="rounded-lg" src={filme.imgUrl} alt={"Imagem do filme"} />
+          </div>
+          <p><b>Gênero:</b> {filme.genero}</p>
+          <p><b>Ano de Lançamento:</b> {filme.anoLancamento}</p>
+          <p><b>Nota Crítica:</b> {filme.notaCritica}</p>
         </div>
-    
-        ))}
-</span>
-    )
+      ) : (
+        <p>Carregando...</p>
+      )}
+    </div>
+  );
 }
 
-export default FilmeView;
+export default FilmView;

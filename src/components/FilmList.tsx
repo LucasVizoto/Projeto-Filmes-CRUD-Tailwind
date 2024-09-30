@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteFilme, getFilmes } from "../services/api";
+import { deleteFilme, getFilmeById, getFilmes } from "../services/api";
 import { Link } from "react-router-dom";
 
 
@@ -27,6 +27,9 @@ function FilmeList(){
         await deleteFilme(id);
         loadFilmes();
     };
+    const handleGetById = async (id: string) =>{
+        await getFilmeById(id);
+    };
 
     return(
         <div>
@@ -47,7 +50,7 @@ function FilmeList(){
                         
                         <button onClick={() =>handleDelete(filme.id)}>Delete</button>
                         <Link to={`/edit/${filme.id}`}>Edit</Link>
-                        <Link to={`/view/${filme.id}`}>View</Link>
+                        <button onClick={()=>handleGetById(filme.id)}><Link to={`/view/${filme.id}`}>View</Link></button>
                         </div>
                     ))}
                 </ul>
