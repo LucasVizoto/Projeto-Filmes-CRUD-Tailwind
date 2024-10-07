@@ -1,61 +1,89 @@
 import { useEffect, useState } from "react";
-import { deleteFilme, getFilmeById, getFilmes } from "../services/api";
+import { deleteFilme, getFilmes } from "../services/api";
 import { Link } from "react-router-dom";
 
 
-interface Filme{
+interface Filme {
     id: string,
-    nome: string, 
+    nome: string,
     genero: string,
     anoLancamento: number,
     notaCritica: number,
     imgUrl: string
 }
 
-function FilmeList(){
+function FilmeList() {
 
     const [filmes, setFilmes] = useState<Filme[]>([]);
-    useEffect(()=>{
+    useEffect(() => {
         loadFilmes();
-    },[]);
+    }, []);
 
-    const loadFilmes = async () =>{
+    const loadFilmes = async () => {
         const response = await getFilmes();
         setFilmes(response.data);
     };
-    const handleDelete = async (id : string) =>{
+    const handleDelete = async (id: string) => {
         await deleteFilme(id);
         loadFilmes();
     };
-    const handleGetById = async (id: string) =>{
-        await getFilmeById(id);
-    };
 
-    return(
-        <div>
-            <div>
-                <h3>Filme List</h3>
+    return (
+<div>
+  <div>
+    <h3>Filme List</h3>
 
-                <div>
-                    <Link to='/add'>Add Filme</Link>
-                </div>
+    <div>
+      <Link to='/add'>Add Filme</Link>
+    </div>
+  
+    <div className="grid grid-cols-3 gap-4">
+      
+      {filmes.map((filme) => (
+        
+        <div key={filme.id} className="border p-4 rounded-xl flex flex-col">
+          
+          <img 
+            className="w-full h-auto rounded-lg mb-4" 
+            src={filme.imgUrl} 
+            alt="Here you deserve to see the movie poster, so something went wrong... Sorry :( " 
+          />
 
-                <ul>
-                    {filmes.map((filme)=>(
-                        <div key={filme.id}>
-                        <img className="w-[20%]" src={filme.imgUrl} alt="Here you deserve to see the movie poster, so something went wrong... Sorry :( " /> 
-                        {filme.nome} - 
-                        {filme.notaCritica}
-                        
-                        
-                        <button onClick={() =>handleDelete(filme.id)}>Delete</button>
-                        <Link to={`/edit/${filme.id}`}>Edit</Link>
-                        <button onClick={()=>handleGetById(filme.id)}><Link to={`/view/${filme.id}`}>View</Link></button>
-                        </div>
-                    ))}
-                </ul>
-            </div>
+          <div className="font-bold mb-4">
+            {filme.nome.toUpperCase()} - {filme.notaCritica}
+          </div>
+
+          <div className="mt-auto">
+            <button 
+              className="bg-red-800 text-white px-2 py-1 m-2 rounded-lg
+               hover:border-2 hover:border-b-slate-50 hover:scale-110" 
+              onClick={() => handleDelete(filme.id)}>
+              Delete
+            </button>
+
+            <Link 
+              to={`/edit/${filme.id}`} 
+              className="bg-green-900 px-2 py-1  rounded-lg text-center
+               hover:border-2 hover:border-b-slate-50 hover:text-xl">
+              Edit
+            </Link>
+
+            <button 
+              className="bg-blue-800 text-white px-2 py-1 m-2 
+              rounded-lg hover:border-2 hover:border-b-slate-50 
+              hover:scale-110">
+
+              <Link to={`/view/${filme.id}`} className="block text-center">
+                View
+              </Link>
+            </button>
+          </div>
         </div>
+      ))}
+    </div>
+  </div>
+</div>
+
     )
 }
 

@@ -1,6 +1,6 @@
 
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import './App.css'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import HomePage from './pages/HomePage'
 import AddFilme from './pages/AddFilme'
