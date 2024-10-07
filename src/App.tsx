@@ -6,11 +6,13 @@ import HomePage from './pages/HomePage'
 import AddFilme from './pages/AddFilme'
 import EditFilme from './pages/EditFIlme'
 import SeeMovie from './pages/SeeMovie'
+import Example from './teste_header'
 
 function App() {
 
   return (
     <Router>
+      <Example/>
       <Toaster invert richColors/>
       <Routes>
         <Route path='/' element={<HomePage/>}/>

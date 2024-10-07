@@ -31,17 +31,16 @@ function FilmeList() {
     return (
 <div>
   <div>
-    <h3>Filme List</h3>
 
     <div>
-      <Link to='/add'>Add Filme</Link>
+
     </div>
   
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-3 gap-8 m-16">
       
       {filmes.map((filme) => (
         
-        <div key={filme.id} className="border p-4 rounded-xl flex flex-col">
+        <div key={filme.id} className="border-4 p-6 rounded-xl flex flex-col">
           
           <img 
             className="w-full h-auto rounded-lg mb-4" 
@@ -63,7 +62,7 @@ function FilmeList() {
 
             <Link 
               to={`/edit/${filme.id}`} 
-              className="bg-green-900 px-2 py-1  rounded-lg text-center
+              className="bg-amber-600 px-2 py-1  rounded-lg text-center
                hover:border-2 hover:border-b-slate-50 hover:text-xl">
               Edit
             </Link>

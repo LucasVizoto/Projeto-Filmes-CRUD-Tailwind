@@ -1,9 +1,9 @@
 import FilmeList from "../components/FilmList";
 
+
 function HomePage(){
     return(
-        <div>
-            <h1>Página Inicial</h1>
+        <div>     
             <FilmeList/>
             </div>
     )
