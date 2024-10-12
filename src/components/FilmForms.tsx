@@ -64,10 +64,12 @@ function FormFIlmes(){
     };
 
     return (
-        <form onSubmit={handleSubmit}> 
-            <div>
+        <form className="border-zinc-50 border-2 rounded-xl" onSubmit={handleSubmit}> 
+ 
+            <div className="">
                 <label >Nome do Filme</label>
                 <input 
+                className="disabled:opacity-75"
                 type="text" 
                 name="nome" 
                 placeholder="Nome do Filme" 
